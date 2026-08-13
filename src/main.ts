@@ -1,4 +1,6 @@
 import "./style.css";
+import { animate, press } from "motion";
+import { bindTilt, grainCss, reducedMotion } from "./studio";
 
 type Stroke = { t: "rake"; pts: number[] } | { t: "stone" | "leaf"; x: number; y: number };
 type Tool = "rake" | "stone" | "leaf";
@@ -154,6 +156,31 @@ document.querySelector("#reset")!.addEventListener("click", () => {
   }, 1600);
 });
 
+function mountGrain(opacity: number): void {
+  const css = document.createElement("style");
+  css.textContent = grainCss(opacity);
+  document.head.append(css);
+  const el = document.createElement("div");
+  el.className = "studio-grain";
+  el.setAttribute("aria-hidden", "true");
+  document.body.append(el);
+}
+
+function mountStudio(): void {
+  bindTilt(document.querySelector("header"), 6, 10);
+  mountGrain(0.08);
+  if (reducedMotion()) return;
+  const tray = document.querySelector<HTMLElement>(".tray");
+  const head = document.querySelector<HTMLElement>("header");
+  if (head) void animate(head, { opacity: [0, 1], transform: ["translateY(-10px)", "translateY(0px)"] }, { duration: 0.65 });
+  if (tray) void animate(tray, { opacity: [0, 1], transform: ["translateY(16px)", "translateY(0px)"] }, { duration: 0.8, delay: 0.08 });
+  press("nav button", (el) => {
+    animate(el, { scale: 0.96 }, { duration: 0.1 });
+    return () => animate(el, { scale: 1 }, { duration: 0.2 });
+  });
+}
+
 addEventListener("resize", size);
 load();
 size();
+mountStudio();

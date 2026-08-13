@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rake</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:image" content="/og.png" />
     <meta name="description" content="An infinite minimalist zen garden. Share the sand." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,11 +15,16 @@
   </head>
   <body>
     <header>
-      <p>FT–011</p>
-      <h1>Rake</h1>
-      <p class="mute">There is no score. Drag to rake. Place a stone. Copy the URL to keep this garden.</p>
+      <img class="mark" src="/logo.svg" width="44" height="44" alt="" />
+      <div class="ident">
+        <p>FT–011</p>
+        <h1>Rake</h1>
+        <p class="mute">There is no score. Drag to rake. Place a stone. Copy the URL to keep this garden.</p>
+      </div>
     </header>
-    <canvas id="sand"></canvas>
+    <div class="tray">
+      <canvas id="sand"></canvas>
+    </div>
     <nav>
       <button type="button" data-tool="rake" class="on">Rake</button>
       <button type="button" data-tool="stone">Stone</button>

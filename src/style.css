@@ -3,31 +3,109 @@
   --ink: #2b261f;
   --mute: #6f675b;
   --paper: #efe6d4;
+  --wood: #8a5a32;
+  --wood-dark: #4a2e18;
+  --wood-light: #c4a06a;
 }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body {
-  background: var(--paper);
+  background:
+    radial-gradient(90% 60% at 50% 0%, #f6eee0 0%, var(--paper) 55%, #d9cbb3 100%);
   color: var(--ink);
   font-family: "Shippori Mincho", serif;
   display: grid;
   grid-template-rows: auto 1fr auto auto;
   min-height: 100%;
+  perspective: 1400px;
 }
 
-header { padding: 18px 22px 8px; }
+header {
+  --rx: 0deg;
+  --ry: 0deg;
+  --z: 0px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 22px 8px;
+  transform: rotateX(var(--rx)) rotateY(var(--ry)) translateZ(var(--z));
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  transform: rotate(-8deg);
+  mix-blend-mode: multiply;
+  opacity: 0.78;
+  filter: contrast(1.2) saturate(0.85);
+  box-shadow: 0 0 0 1px #2b261f22;
+}
+
+.ident { min-width: 0; }
 header p { margin: 0; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.16em; }
 h1 { margin: 4px 0; font-weight: 600; font-size: 28px; }
-.mute { color: var(--mute); font-size: 14px; max-width: 36rem; }
+.mute { color: var(--mute); font-size: 14px; max-width: 36rem; letter-spacing: 0; font-family: "Shippori Mincho", serif; }
+
+.tray {
+  position: relative;
+  width: min(980px, calc(100% - 28px));
+  margin: 8px auto;
+  padding: 22px 20px 26px;
+  border-radius: 12px;
+  background:
+    linear-gradient(90deg, var(--wood-dark), var(--wood) 14%, var(--wood-light) 50%, var(--wood) 86%, var(--wood-dark)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 3px,
+      #00000014 3px 4px
+    );
+  box-shadow:
+    inset 0 2px 0 #e8d5a8,
+    inset 0 -16px 22px #2a160888,
+    0 2px 0 #3a2210,
+    0 18px 28px #0003,
+    0 40px 60px -20px #0004;
+}
+
+.tray::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 22px 20px 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23w)' opacity='.45'/%3E%3C/svg%3E");
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.tray::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 18px 16px 22px;
+  border-radius: 6px;
+  box-shadow: inset 0 10px 18px #0005, inset 0 -4px 8px #fff2;
+}
 
 #sand {
-  width: min(960px, calc(100% - 32px));
+  position: relative;
+  z-index: 1;
+  width: 100%;
   height: min(62vh, 560px);
-  margin: 8px auto;
+  margin: 0;
   background: var(--sand);
-  border-radius: 4px;
-  box-shadow: inset 0 0 80px #0002, 0 20px 50px #0001;
+  border-radius: 3px;
+  box-shadow: inset 0 0 80px #0002;
   cursor: crosshair;
   touch-action: none;
   display: block;
@@ -60,7 +138,7 @@ button.on, button:not(.ghost):active {
 #ceremony {
   position: fixed;
   inset: 0;
-  z-index: 8;
+  z-index: 50;
   background: var(--paper);
   display: none;
   place-items: center;
@@ -78,3 +156,19 @@ button.on, button:not(.ghost):active {
   font-size: 11px;
 }
 .webring a { color: var(--mute); text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    perspective: none;
+  }
+
+  header,
+  .mark {
+    transform: none !important;
+    transition: none;
+  }
+
+  .studio-grain {
+    opacity: 0.04;
+  }
+}
