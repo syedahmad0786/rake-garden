@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rake</title>
+    <meta name="description" content="An infinite minimalist zen garden. Share the sand." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <p>FT–011</p>
+      <h1>Rake</h1>
+      <p class="mute">There is no score. Drag to rake. Place a stone. Copy the URL to keep this garden.</p>
+    </header>
+    <canvas id="sand"></canvas>
+    <nav>
+      <button type="button" data-tool="rake" class="on">Rake</button>
+      <button type="button" data-tool="stone">Stone</button>
+      <button type="button" data-tool="leaf">Leaf</button>
+      <button type="button" id="share">Share garden</button>
+      <button type="button" id="reset" class="ghost">Ceremonial reset</button>
+    </nav>
+    <div id="ceremony" hidden>
+      <p>The sand forgets. This takes a moment on purpose.</p>
+    </div>
+    <footer class="webring">
+      <a href="https://fun-toys.vercel.app">a Fun Toy</a>
+      ·
+      <a href="https://still-here.vercel.app">prev</a>
+      <a href="https://cursorling.vercel.app">next</a>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
