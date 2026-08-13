@@ -60,10 +60,15 @@ button.on, button:not(.ghost):active {
 #ceremony {
   position: fixed;
   inset: 0;
+  z-index: 8;
   background: var(--paper);
-  display: grid;
+  display: none;
   place-items: center;
   font-size: 22px;
+}
+
+#ceremony:not([hidden]) {
+  display: grid;
 }
 
 .webring {
